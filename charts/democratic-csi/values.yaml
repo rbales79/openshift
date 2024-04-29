@@ -16,7 +16,7 @@ democratic-csi:
 
   # add note here about volume expansion requirements
   storageClasses:
-    - name: synology-iscsi
+    - name: synology-lvms-vg1
       defaultClass: true
       reclaimPolicy: Delete
       volumeBindingMode: Immediate
@@ -35,7 +35,7 @@ democratic-csi:
         controller-expand-secret:
 
   volumeSnapshotClasses:
-    - name: synology-iscsi
+    - name: synology-lvms-vg1
       parameters:
       secrets:
         snapshotter-secret:
@@ -49,7 +49,7 @@ democratic-csi:
 
   driver:
     config:
-      driver: synology-iscsi
+      driver: synology-lvms-vg1
       httpConnection:
         protocol: http
         host: server address
@@ -65,11 +65,11 @@ democratic-csi:
       # synology:
       #   volume: /volume1
 
-      iscsi:
+      lvms-vg1:
         targetPortal: "server[:port]"
         # for multipath
         targetPortals: [] # [ "server[:port]", "server[:port]", ... ]
-        # leave empty to omit usage of -I with iscsiadm
+        # leave empty to omit usage of -I with lvms-vg1adm
         interface: ""
         # can be whatever you would like
         baseiqn: "iqn.2000-01.com.synology:csi."

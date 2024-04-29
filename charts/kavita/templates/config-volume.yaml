@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: iscsi
+  storageClassName: lvms-vg1
   resources:
     requests:
       storage: 15Gi
