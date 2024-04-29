@@ -9,7 +9,7 @@ cluster:
   top_level_domain: example.com
   name: my-cluster
   admin_email: YOUR_EMAIL
-  timezone: Americas/New_York
+  timezone: America/New_York
 
 certificates:
   issuer: staging # or production
@@ -32,12 +32,12 @@ democratic-csi:
 media:
   nfs:
     server: my-nas
-    path: /nas-1/k8s/nfs
+    path: /mnt/nas-1/k8s/nfs
 
 backup:
   nfs:
     server: my-nas
-    path: /nas-1/k8s/nfs
+    path: /mnt/nas-1/k8s/nfs
 
 network:
   startIP: 192.168.1.55
