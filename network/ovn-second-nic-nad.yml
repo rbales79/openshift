@@ -1,0 +1,14 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: ovs-br2-multiple-networks-nad-2
+  namespace: default
+spec:
+  config: |2
+    {
+            "cniVersion": "0.3.1", 
+            "name": "localnet3", 
+            "type": "ovn-k8s-cni-overlay", 
+            "topology": "localnet", 
+            "netAttachDefName": "default/ovs-br2-multiple-networks-nad-2" 
+    }

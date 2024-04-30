@@ -1,0 +1,13 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: linux-bridge
+spec:
+  desiredState:
+    interfaces:
+      - bridge:
+          port:
+            - name: enp2s0
+        name: br0
+        state: up
+        type: linux-bridge

@@ -1,0 +1,8 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  annotations:
+  name: linux-bridge-br0
+  namespace: default
+spec:
+  config: '{"name":"linux-bridge-br0","type":"cnv-bridge","cniVersion":"0.3.1","bridge":"br0","macspoofchk":true,"ipam":{},"preserveDefaultVlan":false}'
