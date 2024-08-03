@@ -65,33 +65,6 @@ spec:
           value: {{ $nfs.nfs.server }}
         - name: nfs-subdir-external-provisioner.nfs.path
           value: {{ $nfs.nfs.path }}
-
-        - name: network.lan.defaultGW
-          value: {{ .Values.network.lan.defaultGW }}
-        - name: network.node0.name
-          value: {{ .Values.network.node0.name }}
-        - name: network.node0.storageInterface.name
-          value: {{ .Values.network.node0.storageInterface.name }}
-        - name: network.node0.storageIp.ip
-          value: {{ .Values.network.node0.storageIp.ip }}
-        - name: network.node0.storageIp.prefixLength
-          value: "{{ .Values.network.node0.storageIp.prefixLength }}"
-        - name: network.node1.name
-          value: {{ .Values.network.node1.name }}
-        - name: network.node1.storageInterface.name
-          value: {{ .Values.network.node1.storageInterface.name }}
-        - name: network.node1.storageIp.ip
-          value: {{ .Values.network.node1.storageIp.ip }}
-        - name: network.node1.storageIp.prefixLength
-          value: "{{ .Values.network.node1.storageIp.prefixLength }}"
-        - name: network.node2.name
-          value: {{ .Values.network.node2.name }}
-        - name: network.node2.storageInterface.name
-          value: {{ .Values.network.node2.storageInterface.name }}
-        - name: network.node2.storageIp.ip
-          value: {{ .Values.network.node2.storageIp.ip }}
-        - name: network.node2.storageIp.prefixLength
-          value: "{{ .Values.network.node2.storageIp.prefixLength }}"
   syncPolicy:
     automated:
       selfHeal: true
