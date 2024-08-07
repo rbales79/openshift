@@ -13,30 +13,6 @@ spec:
 apiVersion: startpunkt.ullberg.us/v1alpha1
 kind: Application
 metadata:
-  name: old-homeassistant
-  namespace: hajimari
-spec:
-  name: old Home Assistant
-  group: Utilities
-  icon: home-assistant
-  url: http://homeassistant.{{ .Values.cluster.top_level_domain }}:8123
-  info: Home automation
----
-apiVersion: startpunkt.ullberg.us/v1alpha1
-kind: Application
-metadata:
-  name: valetudo
-  namespace: hajimari
-spec:
-  name: Vacuum
-  group: Home Automation
-  icon: robot-vacuum
-  url: http://valetudo.{{ .Values.cluster.top_level_domain }}
-  info: Home automation
----
-apiVersion: startpunkt.ullberg.us/v1alpha1
-kind: Application
-metadata:
   name: unifi
   namespace: hajimari
 spec:
