@@ -13,7 +13,7 @@ spec:
     server: {{ .Values.backup.nfs.server }}
     path: {{ .Values.backup.nfs.path }}
   mountOptions:
-    - nfsvers=4.1
+    - nfsvers=4
     - nconnect=8
     - hard
     - noatime
