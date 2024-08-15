@@ -36,8 +36,8 @@ spec:
 
         - name: certificates.issuer
           value: {{ .Values.certificates.issuer }}
-        - name: certificates.cloudflare.api_token
-          value: {{ .Values.certificates.cloudflare.api_token }}
+        - name: certificates.cloudflare.api_key
+          value: {{ .Values.certificates.cloudflare.api_key }}
 
           {{ $csi := index .Values "democratic-csi" }}
         - name: democratic-csi.driver.config.httpConnection.host

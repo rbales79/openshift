@@ -24,8 +24,8 @@ spec:
           value: {{ .Values.cluster.admin_email }}
         - name: issuer
           value: {{ .Values.certificates.issuer }}
-        - name: cloudflare.api_token
-          value: {{ .Values.certificates.cloudflare.api_token }}
+        - name: cloudflare.api_key
+          value: {{ .Values.certificates.cloudflare.api_key }}
   syncPolicy:
     automated:
       selfHeal: true
