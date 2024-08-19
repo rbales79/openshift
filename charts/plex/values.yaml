@@ -25,7 +25,7 @@ app-template:
   service:
     main:
       annotations:
-        metallb.universe.tf/loadBalancerIPs: 10.0.0.1
+        keepalived-operator.redhat-cop.io/keepalivedgroup: keepalived-operator/lan
       type: LoadBalancer
       controller: main
       ports:
