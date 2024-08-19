@@ -18,7 +18,7 @@ app-template:
             pullPolicy: IfNotPresent
           env:
             TZ: TIMEZONE
-            PLEX_CLAIM: 'claim-YT1ur8UtiqeN21Nc-r6c'
+            PLEX_CLAIM: 'claim-PU7Nyb8wGxi7ef1u2Xxe'
 
   serviceAccount:
     name: plex-sa
