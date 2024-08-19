@@ -12,7 +12,7 @@ app-template:
       containers:
         main:
           image:
-            # renovate: docker-image versioning=loose
+            # renovate: docker-image versioning=semver-coerced
             repository: ghcr.io/onedr0p/plex
             tag: 1.40.2.8395-c67dce28e
             pullPolicy: IfNotPresent
