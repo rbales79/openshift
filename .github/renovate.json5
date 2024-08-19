@@ -40,6 +40,13 @@
             ]
         }
     ],
+    "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["plex"],
+      "versioning": "loose"
+    }
+    ],
     "enabledManagers": [
         "github-actions",
         "custom.regex",
