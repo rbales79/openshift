@@ -43,7 +43,7 @@
     "packageRules": [
     {
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["plex"],
+      "matchPackageNames": ["ghcr.io/onedr0p/plex"],
       "versioning": "loose"
     }
     ],
