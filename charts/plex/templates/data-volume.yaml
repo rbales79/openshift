@@ -3,6 +3,8 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: data-volume
+  labels:
+    kasten/skip: "true"
 spec:
   storageClassName: ""
   capacity:
@@ -19,17 +21,3 @@ spec:
     - noatime
     - rsize=131072
     - wsize=131072
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: data-volume
-  labels:
-    kasten/skip: "true"
-spec:
-  accessModes: ["ReadWriteMany"]
-  resources:
-    requests:
-      storage: 1Mi
-  volumeName: data-volume
-  storageClassName: ""
