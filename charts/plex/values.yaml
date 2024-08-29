@@ -65,7 +65,7 @@ app-template:
 
     data:
       enabled: true
-      existingClaim: data-volume
+      existingClaim: plex-data-volume
       globalMounts:
         - path: /data
 
