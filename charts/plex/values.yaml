@@ -12,7 +12,7 @@ app-template:
           image:
             # renovate: docker-image versioning=loose
             repository: ghcr.io/onedr0p/plex
-            tag: 1.41.5.9522-a96edc606
+            tag: 1.41.5.9522
             pullPolicy: IfNotPresent
           env:
             TZ: TIMEZONE
