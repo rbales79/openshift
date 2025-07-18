@@ -18,7 +18,7 @@ app-template:
             pullPolicy: Always
           env:
             TZ: TIMEZONE
-            PLEX_CLAIM_TOKEN: 'claim-gJ8XP9GsQzJQQYiJL8DZ'
+            PLEX_CLAIM_TOKEN: claim-Ek_fav_PwXVxLhHYB1Nd
 #          resources:
 #            requests:
 #              gpu.intel.com/i915: 1
