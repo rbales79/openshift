@@ -14,6 +14,9 @@ cluster:
   admin_email: YOUR_EMAIL
   timezone: YOUR_TIMEZONE
 
+plex:
+  claimToken: YOUR_PLEX_CLAIM_TOKEN
+
 applications:
   bazarr: true
   gaps: true
@@ -36,5 +39,3 @@ media:
   nfs:
     server: my-nas
     path: /mnt/nfs
-    plex:
-      claimToken: YOUR_PLEX_CLAIM_TOKEN
