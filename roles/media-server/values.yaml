@@ -36,3 +36,5 @@ media:
   nfs:
     server: my-nas
     path: /mnt/nfs
+    plex:
+      claimToken: YOUR_PLEX_CLAIM_TOKEN
