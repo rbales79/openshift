@@ -34,7 +34,7 @@ app-template:
         keepalived-operator.redhat-cop.io/keepalivedgroup: "keepalived-operator/lan"
       type: ClusterIP
       externalIPs:
-        - 192.168.64.56
+        - 192.168.1.225
       controller: main
       ports:
         http:
