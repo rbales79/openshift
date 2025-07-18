@@ -6,6 +6,6 @@ cluster:
   name: my-cluster
   admin_email: YOUR_EMAIL
 
-issuer: staging # or production
+issuer: production # or production
 cloudflare:
   api_key: YOUR_KEY
