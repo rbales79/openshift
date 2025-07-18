@@ -1,0 +1,98 @@
+config:
+  storageClassName: "synology-iscsi"
+  
+app-template:
+  controllers:
+    main:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        kasten/backup: "true"
+      containers:
+        main:
+          image:
+            # renovate: docker-image versioning=loose
+            repository: lscr.io/linuxserver/plex
+            tag: 1.41.9
+            pullPolicy: Always
+          env:
+            TZ: TIMEZONE
+            PLEX_CLAIM: claim-wiQxgMxiUAnysdDMPZcT
+#          resources:
+#            requests:
+#              gpu.intel.com/i915: 1
+#            limits:
+#              gpu.intel.com/i915: 1
+
+      serviceAccount:
+        name: plex-sa
+
+  service:
+    main:
+      annotations:
+        keepalived-operator.redhat-cop.io/keepalivedgroup: "keepalived-operator/lan"
+      type: ClusterIP
+      externalIPs:
+        - 192.168.1.225
+      controller: main
+      ports:
+        http:
+          port: 32400
+        dlna-udp:
+          port: 1900
+          protocol: UDP
+        dlna-tcp:
+          port: 32469
+          protocol: TCP
+        plex-companion:
+          port: 3005
+          protocol: TCP
+        plex-roku:
+          port: 8234
+          protocol: TCP
+        gdm-1:
+          port: 32410
+          protocol: UDP
+        gdm-2:
+          port: 32412
+          protocol: UDP
+        gdm3:
+          port: 32413
+          protocol: UDP
+        gdm-4:
+          port: 32414
+          protocol: UDP
+        bonjour:
+          port: 5353
+          protocol: UDP
+
+  persistence:
+    config:
+      enabled: true
+      existingClaim: plex-config
+
+    data:
+      enabled: true
+      existingClaim: data-volume
+      globalMounts:
+        - path: /data
+
+    transcode:
+      enabled: true
+      type: emptyDir
+
+  defaultPodOptions:
+    labels:
+      app: plex
+      version: 1.0.0
+    securityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 100
+        - 65535

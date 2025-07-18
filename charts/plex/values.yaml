@@ -7,34 +7,24 @@ app-template:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
-      labels:
-        kasten/backup: "true"
       containers:
         main:
           image:
             # renovate: docker-image versioning=loose
-            repository: lscr.io/linuxserver/plex
-            tag: 1.41.9
-            pullPolicy: Always
+            repository: ghcr.io/onedr0p/plex
+            tag: 1.41.5.9522
+            pullPolicy: IfNotPresent
           env:
             TZ: TIMEZONE
-            PLEX_CLAIM: claim-wiQxgMxiUAnysdDMPZcT
-#          resources:
-#            requests:
-#              gpu.intel.com/i915: 1
-#            limits:
-#              gpu.intel.com/i915: 1
-
-      serviceAccount:
-        name: plex-sa
+            PLEX_CLAIM_TOKEN: {{ .Values.plex.claimToken }}
+  serviceAccount:
+    name: plex-sa
 
   service:
     main:
       annotations:
-        keepalived-operator.redhat-cop.io/keepalivedgroup: "keepalived-operator/lan"
-      type: ClusterIP
-      externalIPs:
-        - 192.168.1.225
+        keepalived-operator.redhat-cop.io/keepalivedgroup: keepalived-operator/lan
+      type: LoadBalancer
       controller: main
       ports:
         http:
@@ -74,7 +64,7 @@ app-template:
 
     data:
       enabled: true
-      existingClaim: data-volume
+      existingClaim: plex-data-volume
       globalMounts:
         - path: /data
 
