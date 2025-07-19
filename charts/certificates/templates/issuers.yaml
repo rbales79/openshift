@@ -20,7 +20,7 @@ spec:
           email: {{ .Values.cluster.admin_email }}
           apiKeySecretRef:
             name: certificates-secret
-            key: api_key
+            key: api-key
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/cert-manager.io/clusterissuer_v1.json
 apiVersion: cert-manager.io/v1
@@ -43,4 +43,4 @@ spec:
           email: {{ .Values.cluster.admin_email }}
           apiKeySecretRef:
             name: certificates-secret
-            key: api_key
+            key: api-key
