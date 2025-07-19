@@ -24,7 +24,9 @@ app-template:
     main:
       annotations:
         keepalived-operator.redhat-cop.io/keepalivedgroup: keepalived-operator/lan
-      type: LoadBalancer
+      type: ClusterIP
+      externalIPs:
+        - 192.168.1.225
       controller: main
       ports:
         http:
