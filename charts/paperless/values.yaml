@@ -35,7 +35,7 @@ app-template:
           image:
             # renovate: docker-image
             repository: ghcr.io/paperless-ngx/paperless-ngx
-            tag: 2.17.1
+            tag: 2.18.2
             pullPolicy: Always
           env:
             TZ: TIMEZONE
@@ -103,7 +103,7 @@ app-template:
         gotenburg:
           image:
             repository: thecodingmachine/gotenberg
-            tag: 8.21.1
+            tag: 8.22.0
             pullPolicy: IfNotPresent
           env:
             - {name: DISABLE_GOOGLE_CHROME, value: '1'}
@@ -122,7 +122,7 @@ app-template:
         redis:
           image:
             repository: public.ecr.aws/docker/library/redis
-            tag: 8.2.0
+            tag: 8.2.1
             pullPolicy: IfNotPresent
       serviceAccount:
         name: paperless-ngx-sa
