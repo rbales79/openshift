@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "openShift-values",
+			"path": "../openShift-values"
+		}
+	],
+	"settings": {}
+}
