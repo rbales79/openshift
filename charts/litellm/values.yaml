@@ -1,0 +1,32 @@
+# Default values for litellm.
+replicaCount: 1
+image:
+  repository: ghcr.io/berriai/litellm
+  tag: main-latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 4000
+
+resources: {}
+
+env:
+  LITELLM_LOG: "INFO"
+  LITELLM_PORT: "4000"
+
+config:
+  # LiteLLM configuration will be mounted as a config file
+  litellm_config: |
+    model_list:
+      - model_name: gpt-3.5-turbo
+        litellm_params:
+          model: gpt-3.5-turbo
+          api_key: os.environ/OPENAI_API_KEY
+      - model_name: claude-3-sonnet
+        litellm_params:
+          model: claude-3-sonnet-20240229
+          api_key: os.environ/ANTHROPIC_API_KEY
+
+persistence:
+  enabled: false
