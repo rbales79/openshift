@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwebui
+  namespace: openshift-gitops
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: openwebui
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: charts/openwebui
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      parameters:
+        - name: cluster.top_level_domain
+          value: {{ .Values.cluster.top_level_domain }}
+        - name: cluster.name
+          value: {{ .Values.cluster.name }}
+        - name: cluster.admin_email
+          value: {{ .Values.cluster.admin_email }}
+        - name: cluster.timezone
+          value: {{ .Values.cluster.timezone }}
+
+        - name: image.repository
+          value: ghcr.io/open-webui/open-webui
+        - name: image.tag
+          value: main
+        - name: image.pullPolicy
+          value: IfNotPresent
+
+        - name: service.type
+          value: ClusterIP
+        - name: service.port
+          value: '8080'
+
+        - name: replicaCount
+          value: '1'
+        
+        - name: env.WEBUI_SECRET_KEY
+          value: "openwebui-secret-key-change-me"
+        - name: env.ENABLE_SIGNUP
+          value: "false"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
