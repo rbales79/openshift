@@ -29,4 +29,15 @@ spec:
             - name: WEBUI_SECRET_KEY
               value: {{ .Values.env.WEBUI_SECRET_KEY | default "secret-key" | quote }}
             - name: ENABLE_SIGNUP
-              value: {{ .Values.env.ENABLE_SIGNUP | default "false" | quote }}
+              value: {{ .Values.env.ENABLE_SIGNUP | default "true" | quote }}
+            - name: ENABLE_LOGIN_FORM
+              value: {{ .Values.env.ENABLE_LOGIN_FORM | default "true" | quote }}
+            - name: WEBUI_AUTH
+              value: {{ .Values.env.WEBUI_AUTH | default "true" | quote }}
+          volumeMounts:
+            - name: data
+              mountPath: /app/backend/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "openwebui.fullname" . }}-data

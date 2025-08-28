@@ -11,7 +11,11 @@ resources: {}
 
 env:
   WEBUI_SECRET_KEY: ""
-  ENABLE_SIGNUP: "false"
+  ENABLE_SIGNUP: "true"
+  ENABLE_LOGIN_FORM: "true"
+  WEBUI_AUTH: "true"
   
 persistence:
-  enabled: false
+  enabled: true
+  size: 2Gi
+  accessMode: ReadWriteOnce

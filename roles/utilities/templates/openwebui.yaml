@@ -43,7 +43,18 @@ spec:
         - name: env.WEBUI_SECRET_KEY
           value: "openwebui-secret-key-change-me"
         - name: env.ENABLE_SIGNUP
-          value: "false"
+          value: "true"
+        - name: env.ENABLE_LOGIN_FORM
+          value: "true"
+        - name: env.WEBUI_AUTH
+          value: "true"
+        
+        - name: persistence.enabled
+          value: "true"
+        - name: persistence.size
+          value: "2Gi"
+        - name: persistence.accessMode
+          value: "ReadWriteOnce"
   syncPolicy:
     automated:
       prune: true
