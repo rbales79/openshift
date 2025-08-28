@@ -49,11 +49,9 @@ spec:
         - name: env.LITELLM_SALT_KEY
           value: "sk-is69yG7Vq34aRJNb_F6svkhSq0OwzwrEstN-exnpaavICvJFaKP2g9i0JXlCmWQ-"
         - name: env.DATABASE_URL
-          value: "postgresql://litellm:litellmpassword@litellm-postgres-primary:5432/litellm"
-        - name: env.PORT
-          value: "4000"
+          value: ""
         - name: env.STORE_MODEL_IN_DB
-          value: "True"
+          value: "False"
         
         # Basic configuration - can be customized later
         - name: config.litellm_config

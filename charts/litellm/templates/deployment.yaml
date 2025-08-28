@@ -17,10 +17,18 @@ spec:
         app.kubernetes.io/name: {{ include "litellm.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
           ports:
             - name: http
               containerPort: 4000
@@ -35,15 +43,23 @@ spec:
             - name: LITELLM_SALT_KEY
               value: {{ .Values.env.LITELLM_SALT_KEY | default "sk-XXXXXXXX" | quote }}
             - name: DATABASE_URL
-              value: "postgresql://litellm:litellmpassword@{{ include "litellm.fullname" . }}-postgres-primary:5432/litellm"
+              value: {{ .Values.env.DATABASE_URL | quote }}
             - name: PORT
               value: {{ .Values.env.PORT | default "4000" | quote }}
             - name: STORE_MODEL_IN_DB
-              value: {{ .Values.env.STORE_MODEL_IN_DB | default "True" | quote }}
+              value: {{ .Values.env.STORE_MODEL_IN_DB | default "False" | quote }}
+            - name: HOME
+              value: "/tmp"
+            - name: PRISMA_CLI_BINARY_TARGETS
+              value: "native"
           volumeMounts:
             - name: config
               mountPath: /app/config.yaml
               subPath: config.yaml
+            - name: cache
+              mountPath: /tmp/.cache
+            - name: prisma-cache
+              mountPath: /tmp/.prisma
           command:
             - "litellm"
           args:
@@ -57,3 +73,7 @@ spec:
         - name: config
           configMap:
             name: {{ include "litellm.fullname" . }}-config
+        - name: cache
+          emptyDir: {}
+        - name: prisma-cache
+          emptyDir: {}
