@@ -17,18 +17,10 @@ spec:
         app.kubernetes.io/name: {{ include "litellm.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 3000
-        fsGroup: 2000
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          securityContext:
-            allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            runAsUser: 1000
           ports:
             - name: http
               containerPort: 4000
@@ -48,8 +40,6 @@ spec:
               value: {{ .Values.env.PORT | default "4000" | quote }}
             - name: STORE_MODEL_IN_DB
               value: {{ .Values.env.STORE_MODEL_IN_DB | default "False" | quote }}
-            - name: HOME
-              value: "/tmp"
             - name: PRISMA_CLI_BINARY_TARGETS
               value: "native"
           volumeMounts:
