@@ -30,6 +30,16 @@ spec:
               value: {{ .Values.env.LITELLM_LOG | default "INFO" | quote }}
             - name: LITELLM_PORT
               value: {{ .Values.env.LITELLM_PORT | default "4000" | quote }}
+            - name: LITELLM_MASTER_KEY
+              value: {{ .Values.env.LITELLM_MASTER_KEY | default "sk-1234" | quote }}
+            - name: LITELLM_SALT_KEY
+              value: {{ .Values.env.LITELLM_SALT_KEY | default "sk-XXXXXXXX" | quote }}
+            - name: DATABASE_URL
+              value: "postgresql://litellm:litellmpassword@{{ include "litellm.fullname" . }}-postgres-primary:5432/litellm"
+            - name: PORT
+              value: {{ .Values.env.PORT | default "4000" | quote }}
+            - name: STORE_MODEL_IN_DB
+              value: {{ .Values.env.STORE_MODEL_IN_DB | default "True" | quote }}
           volumeMounts:
             - name: config
               mountPath: /app/config.yaml

@@ -14,6 +14,11 @@ resources: {}
 env:
   LITELLM_LOG: "INFO"
   LITELLM_PORT: "4000"
+  LITELLM_MASTER_KEY: "sk-JDHDSi1azvdYmRhOI0M-CEdbff_pS0YseDBxOW_OqNw"
+  LITELLM_SALT_KEY: "sk-is69yG7Vq34aRJNb_F6svkhSq0OwzwrEstN-exnpaavICvJFaKP2g9i0JXlCmWQ-"
+  DATABASE_URL: ""
+  PORT: "4000"
+  STORE_MODEL_IN_DB: "True"
 
 config:
   # LiteLLM configuration will be mounted as a config file
