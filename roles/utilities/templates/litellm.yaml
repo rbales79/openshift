@@ -11,7 +11,9 @@ spec:
     targetRevision: main
     path: charts/litellm
     helm:
+      releaseName: litellm
       values: |
+        fullnameOverride: litellm
         existingSecret:
           name: llm-keys
           masterKey: LITELLM_MASTER_KEY
