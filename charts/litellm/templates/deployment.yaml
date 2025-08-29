@@ -27,23 +27,21 @@ spec:
               protocol: TCP
           env:
             - name: LITELLM_LOG
-              value: {{ .Values.env.LITELLM_LOG | default "INFO" | quote }}
+              value: {{ .Values.env.LITELLM_LOG | quote }}
             - name: LITELLM_PORT
-              value: {{ .Values.env.LITELLM_PORT | default "4000" | quote }}
+              value: {{ .Values.env.LITELLM_PORT | quote }}
+            - name: PORT
+              value: {{ .Values.env.PORT | default .Values.env.LITELLM_PORT | quote }}
             - name: LITELLM_MASTER_KEY
-              value: {{ .Values.env.LITELLM_MASTER_KEY | default "sk-1234" | quote }}
+              value: {{ .Values.env.LITELLM_MASTER_KEY | quote }}
             - name: LITELLM_SALT_KEY
-              value: {{ .Values.env.LITELLM_SALT_KEY | default "sk-XXXXXXXX" | quote }}
-            - name: DATABASE_URL
-              value: {{ .Values.env.DATABASE_URL | quote }}
-            - name: STORE_MODEL_IN_DB
-              value: {{ .Values.env.STORE_MODEL_IN_DB | default "False" | quote }}
-            - name: DATABASE_URL
-              value: ""
+              value: {{ .Values.env.LITELLM_SALT_KEY | quote }}
             - name: DISABLE_DATABASE
-              value: "True"
+              value: {{ .Values.env.DISABLE_DATABASE | quote }}
             - name: USE_DATABASE
-              value: "False"
+              value: {{ .Values.env.USE_DATABASE | quote }}
+            - name: STORE_MODEL_IN_DB
+              value: {{ .Values.env.STORE_MODEL_IN_DB | quote }}
           volumeMounts:
             - name: config
               mountPath: /app/config.yaml
@@ -58,7 +56,19 @@ spec:
             - "--host"
             - "0.0.0.0"
             - "--disable_database"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
       volumes:
         - name: config
           configMap:
-            name: {{ include "litellm.fullname" . }}-config
+            name: {{ printf "%s-config" (include "litellm.fullname" .) }}

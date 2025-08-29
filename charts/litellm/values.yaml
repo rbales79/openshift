@@ -1,5 +1,6 @@
-# Default values for litellm.
+# Default values for litellm (clean baseline)
 replicaCount: 1
+
 image:
   repository: ghcr.io/berriai/litellm
   tag: main-latest
@@ -9,31 +10,28 @@ service:
   type: ClusterIP
   port: 4000
 
-resources: {}
-
+# Basic static (non-secret) environment variables. Secret values should go in secret.data
 env:
-  LITELLM_LOG: "INFO"
+  LITELLM_LOG: INFO
   LITELLM_PORT: "4000"
-  LITELLM_MASTER_KEY: "sk-JDHDSi1azvdYmRhOI0M-CEdbff_pS0YseDBxOW_OqNw"
-  LITELLM_SALT_KEY: "sk-is69yG7Vq34aRJNb_F6svkhSq0OwzwrEstN-exnpaavICvJFaKP2g9i0JXlCmWQ-"
-  DATABASE_URL: ""
   PORT: "4000"
-  STORE_MODEL_IN_DB: "False"
+  LITELLM_MASTER_KEY: "CHANGEME"
+  LITELLM_SALT_KEY: "CHANGEME"
+  # Disable database by default for a simpler first deployment
   DISABLE_DATABASE: "True"
   USE_DATABASE: "False"
+  STORE_MODEL_IN_DB: "False"
 
+# LiteLLM configuration mounted as /app/config.yaml
 config:
-  # LiteLLM configuration will be mounted as a config file
   litellm_config: |
     model_list:
       - model_name: gpt-3.5-turbo
         litellm_params:
           model: gpt-3.5-turbo
           api_key: os.environ/OPENAI_API_KEY
-      - model_name: claude-3-sonnet
-        litellm_params:
-          model: claude-3-sonnet-20240229
-          api_key: os.environ/ANTHROPIC_API_KEY
+
+resources: {}
 
 persistence:
   enabled: false
