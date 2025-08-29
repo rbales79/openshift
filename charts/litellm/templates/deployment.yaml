@@ -29,6 +29,15 @@ spec:
               value: "4000"
             - name: LITELLM_CONFIG
               value: "/config/config.yml"
+            # Ensure Prisma can write its binary cache in a writable path (non-root image may lack /root or /). Use /tmp/prisma-cache.
+            - name: PRISMA_CLIENT_ENGINE_TYPE
+              value: "binary"
+            - name: PRISMA_CLI_QUERY_ENGINE_TYPE
+              value: "binary"
+            - name: PRISMA_CLI_ENGINE_TYPE
+              value: "binary"
+            - name: PRISMA_CACHE_DIR
+              value: "/tmp/prisma-cache"
             # Master/Salt keys (already supplied via llm-keys secret)
             - name: LITELLM_MASTER_KEY
               valueFrom:
@@ -80,7 +89,15 @@ spec:
             - name: config
               mountPath: /config
               readOnly: true
+            - name: prisma-cache
+              mountPath: /tmp/prisma-cache
+            - name: tmp
+              mountPath: /tmp
       volumes:
         - name: config
           configMap:
             name: litellm-config
+        - name: prisma-cache
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
