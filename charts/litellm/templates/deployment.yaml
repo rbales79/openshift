@@ -38,6 +38,12 @@ spec:
               value: "binary"
             - name: PRISMA_CACHE_DIR
               value: "/tmp/prisma-cache"
+            - name: HOME
+              value: "/tmp"
+            - name: XDG_CACHE_HOME
+              value: "/tmp/.cache"
+            - name: PRISMA_HIDE_UPDATE_MESSAGE
+              value: "1"
             # Master/Salt keys (already supplied via llm-keys secret)
             - name: LITELLM_MASTER_KEY
               valueFrom:
