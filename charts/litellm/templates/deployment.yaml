@@ -40,11 +40,13 @@ spec:
               value: {{ .Values.env.USE_DATABASE | quote }}
             - name: STORE_MODEL_IN_DB
               value: {{ .Values.env.STORE_MODEL_IN_DB | quote }}
+            {{- if .Values.apiKeys.enabled }}
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ include "litellm.fullname" . }}-apikeys
                   key: OPENAI_API_KEY
+            {{- end }}
           livenessProbe:
             httpGet:
               path: {{ .Values.probes.path }}
@@ -65,12 +67,16 @@ spec:
             - name: config
               mountPath: /app/config.yml
               subPath: config.yml
+            {{- if .Values.persistence.enabled }}
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
       volumes:
         - name: config
           configMap:
             name: {{ include "litellm.fullname" . }}-config
+        {{- if .Values.persistence.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "litellm.fullname" . }}-data
+        {{- end }}

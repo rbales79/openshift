@@ -30,9 +30,14 @@ cluster:
   name: sandbox
   top_level_domain: example.com
 
-# Optional API keys (will create a secret if provided)
+# Optional API key configuration
 apiKeys:
-  openai: ""
+  enabled: false            # Master toggle for injecting an OpenAI API key
+  openaiKey: ""             # The OpenAI API key value (used only if enabled=true)
+  # Usage:
+  # apiKeys:
+  #   enabled: true
+  #   openaiKey: sk-XXXX
 
 # Persistence for any local caching or future database usage
 persistence:
