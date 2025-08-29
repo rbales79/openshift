@@ -1,6 +1,0 @@
-apiVersion: v2
-name: litellm
-description: Minimal Helm chart for deploying LiteLLM gateway (utilities bundle)
-type: application
-version: 0.1.0
-appVersion: "latest"
