@@ -1,28 +1,22 @@
-# Default values for litellm (clean baseline)
 replicaCount: 1
-
 image:
   repository: ghcr.io/berriai/litellm
   tag: main-latest
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIP
   port: 4000
+resources: {}
 
-# Basic static (non-secret) environment variables. Secret values should go in secret.data
 env:
   LITELLM_LOG: INFO
   LITELLM_PORT: "4000"
-  PORT: "4000"
-  LITELLM_MASTER_KEY: "CHANGEME"
-  LITELLM_SALT_KEY: "CHANGEME"
-  # Disable database by default for a simpler first deployment
+  LITELLM_MASTER_KEY: ""
+  LITELLM_SALT_KEY: ""
   DISABLE_DATABASE: "True"
   USE_DATABASE: "False"
   STORE_MODEL_IN_DB: "False"
 
-# LiteLLM configuration mounted as /app/config.yaml
 config:
   litellm_config: |
     model_list:
@@ -31,7 +25,32 @@ config:
           model: gpt-3.5-turbo
           api_key: os.environ/OPENAI_API_KEY
 
-resources: {}
+# Add cluster metadata for Route construction
+cluster:
+  name: sandbox
+  top_level_domain: example.com
 
+# Optional API keys (will create a secret if provided)
+apiKeys:
+  openai: ""
+
+# Persistence for any local caching or future database usage
 persistence:
-  enabled: false
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  mountPath: /data
+
+# Probes configuration (adjust path if LiteLLM expose specific health route)
+probes:
+  path: /health
+  liveness:
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 2
+    failureThreshold: 3
+  readiness:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3

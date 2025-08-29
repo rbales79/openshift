@@ -6,5 +6,9 @@ metadata:
     app.kubernetes.io/name: {{ include "litellm.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
-  config.yaml: |
-{{ .Values.config.litellm_config | indent 4 }}
+  config.yml: |
+    model_list:
+      - model_name: gpt-3.5-turbo
+        litellm_params:
+          model: gpt-3.5-turbo
+          api_key: os.environ/OPENAI_API_KEY

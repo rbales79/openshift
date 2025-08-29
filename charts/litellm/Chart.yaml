@@ -1,5 +1,5 @@
 apiVersion: v2
 name: litellm
-description: A Helm chart for deploying LiteLLM proxy server
 version: 0.1.0
+description: Helm chart for LiteLLM gateway
 appVersion: "latest"
