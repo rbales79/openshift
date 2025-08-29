@@ -49,6 +49,9 @@ spec:
             httpGet:
               path: /health
               port: http
+              httpHeaders:
+                - name: Authorization
+                  value: "Bearer health-probe-key"
             initialDelaySeconds: 10
             periodSeconds: 15
             timeoutSeconds: 2
@@ -57,6 +60,9 @@ spec:
             httpGet:
               path: /health
               port: http
+              httpHeaders:
+                - name: Authorization
+                  value: "Bearer health-probe-key"
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 2
