@@ -29,6 +29,7 @@ spec:
               value: "4000"
             - name: LITELLM_CONFIG
               value: "/config/config.yml"
+            # Master/Salt keys (already supplied via llm-keys secret)
             - name: LITELLM_MASTER_KEY
               valueFrom:
                 secretKeyRef:
@@ -39,12 +40,23 @@ spec:
                 secretKeyRef:
                   name: llm-keys
                   key: LITELLM_SALT_KEY
+            # Database flags currently disable persistence; to enable Admin UI persistence:
+            #   1. Create a secret 'litellm-db' with key DATABASE_URL (Postgres connection string)
+            #   2. Switch DISABLE_DATABASE -> "False", USE_DATABASE -> "True", STORE_MODEL_IN_DB -> "True"
+            #   3. (Optional) remove these comments after enabling
             - name: DISABLE_DATABASE
-              value: "True"
+              value: "True"        # set to "False" after providing DATABASE_URL
             - name: USE_DATABASE
-              value: "False"
+              value: "False"       # set to "True" after providing DATABASE_URL
             - name: STORE_MODEL_IN_DB
-              value: "False"
+              value: "False"       # set to "True" to persist model_list / UI-created models
+            # Optional DATABASE_URL (add secret first). Leaving this present but DB disabled suppresses nothing;
+            # you must flip the flags above for LiteLLM to initialize the DB.
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-db
+                  key: DATABASE_URL
           livenessProbe:
             httpGet:
               # /health requires API key auth; /health/liveness is unauthenticated per upstream code
