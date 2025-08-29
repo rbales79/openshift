@@ -1,0 +1,6 @@
+apiVersion: v2
+description: LiteLLM gateway
+name: litellm
+version: 0.1.0
+appVersion: "latest"
+type: application

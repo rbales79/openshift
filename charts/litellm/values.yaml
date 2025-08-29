@@ -1,0 +1,60 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/berriai/litellm
+  tag: main-latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 4000
+
+probes:
+  liveness:
+    enabled: true
+    path: /health
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 2
+    failureThreshold: 3
+  readiness:
+    enabled: true
+    path: /health
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
+
+route:
+  enabled: false
+  host: ""        # optional explicit host; empty lets OpenShift generate
+  tls:
+    enabled: false # if true, create TLS section below
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+
+existingSecret:
+  name: llm-keys
+  masterKey: LITELLM_MASTER_KEY
+  saltKey: LITELLM_SALT_KEY
+
+apiKeysSecret:
+  create: true
+  name: litellm-api-keys
+  keys: []  # list of placeholder API keys, empty creates secret with no entries
+
+env:
+  LITELLM_LOG: INFO
+  LITELLM_PORT: "4000"
+  DISABLE_DATABASE: "True"
+  USE_DATABASE: "False"
+  STORE_MODEL_IN_DB: "False"
+
+config:
+  litellm_config: |
+    model_list:
+      - model_name: gpt-3.5-turbo
+        litellm_params:
+          model: gpt-3.5-turbo
+
+resources: {}
