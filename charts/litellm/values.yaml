@@ -21,9 +21,9 @@ env:
 masterSalt:
   # Option A: Use an existing secret (takes precedence if name is set)
   existingSecret:
-    name: ""                  # When set, use this secret for MASTER & SALT keys
-    masterKey: LITELLM_MASTER_KEY  # Key inside the existing secret containing master key
-    saltKey: LITELLM_SALT_KEY      # Key inside the existing secret containing salt key
+  name: "litellm-litellm-master-salt"   # When set, use this secret for MASTER & SALT keys
+  masterKey: LITELLM_MASTER_KEY          # Key in the existing secret containing master key
+  saltKey: LITELLM_SALT_KEY              # Key in the existing secret containing salt key
   # Option B: Have the chart create/manage a secret (used only if existingSecret.name is empty and createSecret=true)
   createSecret: false
   masterKey: ""               # Used only if createSecret=true
