@@ -14,5 +14,3 @@ data:
           model: gpt-3.5-turbo
     general_settings:
       health_endpoint_auth: false
-      disable_auth_for:
-        - /health

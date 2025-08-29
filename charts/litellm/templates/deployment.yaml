@@ -47,7 +47,8 @@ spec:
               value: "False"
           livenessProbe:
             httpGet:
-              path: /health
+              # /health requires API key auth; /health/liveness is unauthenticated per upstream code
+              path: /health/liveness
               port: http
             initialDelaySeconds: 10
             periodSeconds: 15
@@ -55,7 +56,8 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /health
+              # Use same unprotected endpoint for readiness (lightweight)
+              path: /health/liveness
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
