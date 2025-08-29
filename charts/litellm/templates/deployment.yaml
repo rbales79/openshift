@@ -27,6 +27,8 @@ spec:
               value: "INFO"
             - name: LITELLM_PORT
               value: "4000"
+            - name: LITELLM_CONFIG
+              value: "/config/config.yml"
             - name: LITELLM_MASTER_KEY
               valueFrom:
                 secretKeyRef:
@@ -59,3 +61,11 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 2
             failureThreshold: 3
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: litellm-config
