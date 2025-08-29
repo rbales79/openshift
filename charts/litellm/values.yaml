@@ -1,0 +1,58 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/berriai/litellm
+  tag: main-latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 4000
+
+resources: {}
+
+existingSecret:            # Existing secret with keys (preferred; do not commit real keys)
+  name: llm-keys
+  masterKey: LITELLM_MASTER_KEY
+  saltKey: LITELLM_SALT_KEY
+
+createSecret: false        # If true, chart will create a secret from .secretValues (not recommended for real keys)
+secretValues:
+  masterKey: ""
+  saltKey: ""
+
+env:
+  LITELLM_LOG: INFO
+  LITELLM_PORT: "4000"
+  DISABLE_DATABASE: "True"
+  USE_DATABASE: "False"
+  STORE_MODEL_IN_DB: "False"
+
+config:
+  litellm_config: |
+    model_list:
+      - model_name: gpt-3.5-turbo
+        litellm_params:
+          model: gpt-3.5-turbo
+
+probes:
+  path: /health
+  liveness:
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 2
+    failureThreshold: 3
+  readiness:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
+  
+# Optional OpenShift Route
+route:
+  enabled: false
+  host: ""                # If empty, cluster will assign (or rely on default subdomain config)
+  tls:
+    enabled: false
+    termination: edge      # edge | passthrough | reencrypt
+    insecurePolicy: Redirect  # Redirect | Allow | None

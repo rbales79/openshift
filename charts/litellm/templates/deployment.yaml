@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "litellm.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "litellm.name" . }}
+    app.kubernetes.io/component: gateway
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "litellm.name" . }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "litellm.name" . }}
+    spec:
+      containers:
+        - name: litellm
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 4000
+              name: http
+          env:
+            - name: LITELLM_LOG
+              value: {{ .Values.env.LITELLM_LOG | quote }}
+            - name: LITELLM_PORT
+              value: {{ .Values.env.LITELLM_PORT | quote }}
+            - name: LITELLM_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-keys" (include "litellm.fullname" .)) .Values.existingSecret.name }}
+                  key: {{ .Values.existingSecret.masterKey }}
+            - name: LITELLM_SALT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-keys" (include "litellm.fullname" .)) .Values.existingSecret.name }}
+                  key: {{ .Values.existingSecret.saltKey }}
+            - name: DISABLE_DATABASE
+              value: {{ .Values.env.DISABLE_DATABASE | quote }}
+            - name: USE_DATABASE
+              value: {{ .Values.env.USE_DATABASE | quote }}
+            - name: STORE_MODEL_IN_DB
+              value: {{ .Values.env.STORE_MODEL_IN_DB | quote }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.probes.path }}
+              port: http
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.probes.path }}
+              port: http
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
