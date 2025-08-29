@@ -36,20 +36,18 @@ spec:
               value: {{ .Values.env.LITELLM_SALT_KEY | default "sk-XXXXXXXX" | quote }}
             - name: DATABASE_URL
               value: {{ .Values.env.DATABASE_URL | quote }}
-            - name: PORT
-              value: {{ .Values.env.PORT | default "4000" | quote }}
             - name: STORE_MODEL_IN_DB
               value: {{ .Values.env.STORE_MODEL_IN_DB | default "False" | quote }}
-            - name: PRISMA_CLI_BINARY_TARGETS
-              value: "native"
+            - name: DATABASE_URL
+              value: ""
+            - name: DISABLE_DATABASE
+              value: "True"
+            - name: USE_DATABASE
+              value: "False"
           volumeMounts:
             - name: config
               mountPath: /app/config.yaml
               subPath: config.yaml
-            - name: cache
-              mountPath: /tmp/.cache
-            - name: prisma-cache
-              mountPath: /tmp/.prisma
           command:
             - "litellm"
           args:
@@ -59,11 +57,8 @@ spec:
             - "4000"
             - "--host"
             - "0.0.0.0"
+            - "--disable_database"
       volumes:
         - name: config
           configMap:
             name: {{ include "litellm.fullname" . }}-config
-        - name: cache
-          emptyDir: {}
-        - name: prisma-cache
-          emptyDir: {}

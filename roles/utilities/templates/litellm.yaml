@@ -52,6 +52,10 @@ spec:
           value: ""
         - name: env.STORE_MODEL_IN_DB
           value: "False"
+        - name: env.DISABLE_DATABASE
+          value: "True"
+        - name: env.USE_DATABASE
+          value: "False"
         
         # Basic configuration - can be customized later
         - name: config.litellm_config

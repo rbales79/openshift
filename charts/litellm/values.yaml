@@ -18,7 +18,9 @@ env:
   LITELLM_SALT_KEY: "sk-is69yG7Vq34aRJNb_F6svkhSq0OwzwrEstN-exnpaavICvJFaKP2g9i0JXlCmWQ-"
   DATABASE_URL: ""
   PORT: "4000"
-  STORE_MODEL_IN_DB: "True"
+  STORE_MODEL_IN_DB: "False"
+  DISABLE_DATABASE: "True"
+  USE_DATABASE: "False"
 
 config:
   # LiteLLM configuration will be mounted as a config file
