@@ -15,6 +15,27 @@ spec:
       labels:
         app.kubernetes.io/name: litellm
     spec:
+      # Wait for Postgres to be ready before starting LiteLLM to avoid early auth failures
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:16-alpine
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-pg-pguser-litellm
+                  key: password
+          command: ["/bin/sh","-c"]
+          args:
+            - |
+              echo "[wait-for-postgres] Waiting for Postgres primary to accept connections";
+              for i in $(seq 1 60); do
+                pg_isready -h litellm-pg-primary -p 5432 -U litellm -d litellmdb && echo "Postgres is ready" && exit 0;
+                sleep 2;
+              done;
+              echo "Postgres not ready after waiting";
+              exit 1;
       containers:
         - name: litellm
           image: ghcr.io/berriai/litellm:main-latest
@@ -68,6 +89,12 @@ spec:
             # DATABASE_URL from Crunchy operator generated secret (adjust secret name if different).
             # Typical pattern: <cluster>-pguser-<username>
             - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-pg-pguser-litellm
+                  key: uri
+            # Some Prisma clients also look for PRISMA_DATABASE_URL explicitly; mirror it.
+            - name: PRISMA_DATABASE_URL
               valueFrom:
                 secretKeyRef:
                   name: litellm-pg-pguser-litellm
