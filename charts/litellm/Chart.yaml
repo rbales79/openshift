@@ -1,5 +1,0 @@
-apiVersion: v2
-name: litellm
-version: 0.1.0
-description: Helm chart for LiteLLM gateway
-appVersion: "latest"
