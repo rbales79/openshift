@@ -45,11 +45,11 @@ spec:
             #   2. Switch DISABLE_DATABASE -> "False", USE_DATABASE -> "True", STORE_MODEL_IN_DB -> "True"
             #   3. (Optional) remove these comments after enabling
             - name: DISABLE_DATABASE
-              value: "True"        # set to "False" after providing DATABASE_URL
+              value: "False"       # database enabled
             - name: USE_DATABASE
-              value: "False"       # set to "True" after providing DATABASE_URL
+              value: "True"        # use database
             - name: STORE_MODEL_IN_DB
-              value: "False"       # set to "True" to persist model_list / UI-created models
+              value: "True"        # persist model_list / UI-created models
             # Optional DATABASE_URL (add secret first). Leaving this present but DB disabled suppresses nothing;
             # you must flip the flags above for LiteLLM to initialize the DB.
             - name: DATABASE_URL
@@ -68,8 +68,9 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              # Use same unprotected endpoint for readiness (lightweight)
-              path: /health/liveness
+              # Use /health now that DB is enabled; config sets health_endpoint_auth: false so this stays unauthenticated.
+              # /health performs broader checks than /health/liveness (ensures DB + core services initialized).
+              path: /health
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10

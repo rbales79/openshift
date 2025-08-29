@@ -57,4 +57,18 @@ config:
         litellm_params:
           model: gpt-3.5-turbo
 
+database:
+  enabled: true
+  # Expected external secret values (Crunchy Postgres): host, port, user, password, dbname
+  secret:
+    create: true
+    name: litellm-db
+    host: "postgres-primary"          # service name for crunchy cluster primary
+    port: "5432"
+    user: "litellm"                   # set user created in postgres cluster
+    password: "changeme"              # override via values or external secret management
+    dbname: "litellmdb"
+  # If you prefer supplying a full DATABASE_URL instead of components, set fullUrl and leave components blank
+  fullUrl: ""
+
 resources: {}
