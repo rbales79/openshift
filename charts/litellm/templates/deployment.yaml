@@ -65,13 +65,13 @@ spec:
               value: "True"        # use database
             - name: STORE_MODEL_IN_DB
               value: "True"        # persist model_list / UI-created models
-            # Optional DATABASE_URL (add secret first). Leaving this present but DB disabled suppresses nothing;
-            # you must flip the flags above for LiteLLM to initialize the DB.
+            # DATABASE_URL from Crunchy operator generated secret (adjust secret name if different).
+            # Typical pattern: <cluster>-pguser-<username>
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: litellm-db
-                  key: DATABASE_URL
+                  name: litellm-pg-pguser-litellm
+                  key: uri
           livenessProbe:
             httpGet:
               # /health requires API key auth; /health/liveness is unauthenticated per upstream code
