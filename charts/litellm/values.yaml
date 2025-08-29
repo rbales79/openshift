@@ -17,6 +17,18 @@ env:
   USE_DATABASE: "False"
   STORE_MODEL_IN_DB: "False"
 
+# Optional external secret for master & salt keys
+masterSalt:
+  # Option A: Use an existing secret (takes precedence if name is set)
+  existingSecret:
+    name: ""                  # When set, use this secret for MASTER & SALT keys
+    masterKey: LITELLM_MASTER_KEY  # Key inside the existing secret containing master key
+    saltKey: LITELLM_SALT_KEY      # Key inside the existing secret containing salt key
+  # Option B: Have the chart create/manage a secret (used only if existingSecret.name is empty and createSecret=true)
+  createSecret: false
+  masterKey: ""               # Used only if createSecret=true
+  saltKey: ""                 # Used only if createSecret=true
+
 config:
   litellm_config: |
     model_list:
@@ -38,6 +50,9 @@ apiKeys:
   # apiKeys:
   #   enabled: true
   #   openaiKey: sk-XXXX
+  existingSecret:           # Reference an existing secret instead of creating one
+    name: ""                # When set (non-empty) the chart will NOT create a secret
+    key: OPENAI_API_KEY     # Key in the existing secret holding the API key
 
 # Persistence for any local caching or future database usage
 persistence:

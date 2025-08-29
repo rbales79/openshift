@@ -31,9 +31,33 @@ spec:
             - name: LITELLM_PORT
               value: {{ .Values.env.LITELLM_PORT | quote }}
             - name: LITELLM_MASTER_KEY
+              {{- if .Values.masterSalt.existingSecret.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.masterSalt.existingSecret.name }}
+                  key: {{ .Values.masterSalt.existingSecret.masterKey | default "LITELLM_MASTER_KEY" }}
+              {{- else if .Values.masterSalt.createSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litellm.fullname" . }}-master-salt
+                  key: LITELLM_MASTER_KEY
+              {{- else }}
               value: {{ .Values.env.LITELLM_MASTER_KEY | default "CHANGEME" | quote }}
+              {{- end }}
             - name: LITELLM_SALT_KEY
+              {{- if .Values.masterSalt.existingSecret.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.masterSalt.existingSecret.name }}
+                  key: {{ .Values.masterSalt.existingSecret.saltKey | default "LITELLM_SALT_KEY" }}
+              {{- else if .Values.masterSalt.createSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litellm.fullname" . }}-master-salt
+                  key: LITELLM_SALT_KEY
+              {{- else }}
               value: {{ .Values.env.LITELLM_SALT_KEY | default "CHANGEME" | quote }}
+              {{- end }}
             - name: DISABLE_DATABASE
               value: {{ .Values.env.DISABLE_DATABASE | quote }}
             - name: USE_DATABASE
@@ -44,8 +68,13 @@ spec:
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.apiKeys.existingSecret.name }}
+                  name: {{ .Values.apiKeys.existingSecret.name }}
+                  key: {{ .Values.apiKeys.existingSecret.key | default "OPENAI_API_KEY" }}
+                  {{- else }}
                   name: {{ include "litellm.fullname" . }}-apikeys
                   key: OPENAI_API_KEY
+                  {{- end }}
             {{- end }}
           livenessProbe:
             httpGet:
