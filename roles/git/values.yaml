@@ -1,0 +1,25 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    # Git repo that contains the Helm chart to install
+    repoURL: "https://github.com/rbales79/openshift/"
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: 'true'
+
+cluster:
+  top_level_domain: roybales.com
+  name: my-cluster
+  admin_email: rbales79@gmail.com
+  timezone: YOUR_TIMEZONE
+
+gist_values:
+  # Raw gist URL pointing to a values.yaml that Helm will fetch via --values
+  # (Values are supplied from this gist; the chart itself comes from the GitHub repo set above.)
+  values_url: "https://gist.roybales.com/rbales79/05ad57607df34bdaae1cbcc4f54c4af6"
+  # Path inside the GitHub repo where the Helm chart lives. When ArgoCD/Helm fetches
+  # the chart it will use this path from the repo at `spec.source.repoURL`.
+  # Example: 'charts/gist' or 'charts/ai/litellm'
+  chart_path: "charts/gist"
