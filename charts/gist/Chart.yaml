@@ -1,9 +1,0 @@
-apiVersion: v2
-name: gist
-description: A lightweight chart used by the `git` role to demonstrate deploying values pulled from a gist.
-type: application
-version: 0.1.0
-kubeVersion: ">=1.22.0-0"
-maintainers:
-  - name: Magnus Ullberg
-    email: magnus@ullberg.us

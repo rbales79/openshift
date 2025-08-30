@@ -1,9 +1,0 @@
-apiVersion: v2
-name: git
-description: A Helm chart role that deploys a gist-hosted application via ArgoCD and pulls Helm values from a remote gist repo.
-type: application
-version: 0.1.0
-kubeVersion: ">=1.22.0-0"
-maintainers:
-  - name: Magnus Ullberg
-    email: magnus@ullberg.us
