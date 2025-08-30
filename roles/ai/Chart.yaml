@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ai
+description: Helm chart packaging ArgoCD Application manifests for AI role
+type: application
+version: 0.1.0
+appVersion: "1.0"
