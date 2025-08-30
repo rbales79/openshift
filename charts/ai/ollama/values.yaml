@@ -57,7 +57,7 @@ pods:
     image:
       # renovate custom-docker versioning=semver
       repository: ollama/ollama
-      tag: "0.3.14"
+      tag: "0.11.8"
     env: {}
     resources:
       requests:
