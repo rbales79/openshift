@@ -1,0 +1,85 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: litellm
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: litellm
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: cluster.admin_email
+          value: rbales79@gmail.com
+        - name: cluster.top_level_domain
+          value: roybales.com
+        - name: pods.main.env.LITELLM_DISABLE_DATABASE
+          value: '"true"'
+        - name: pods.main.env.LITELLM_MASTER_KEY
+          value: sk-master
+        - name: pods.main.env.LITELLM_SALT_KEY
+          value: sk-salt
+        - name: pods.main.env.STORE_MODEL_IN_DB
+          value: '"false"'
+    path: charts/ai/litellm
+    repoURL: 'https://github.com/rbales79/openshift/'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: ollama
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: cluster.admin_email
+          value: rbales79@gmail.com
+        - name: cluster.top_level_domain
+          value: roybales.com
+    path: charts/ai/ollama
+    repoURL: 'https://github.com/rbales79/openshift/'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwebui
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openwebui
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: cluster.admin_email
+          value: rbales79@gmail.com
+        - name: cluster.top_level_domain
+          value: roybales.com
+        - name: pods.main.env.OPENAI_API_KEY
+          value: sk-master
+    path: charts/ai/openwebui
+    repoURL: 'https://github.com/rbales79/openshift/'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

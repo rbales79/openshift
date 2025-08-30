@@ -1,6 +1,6 @@
 cluster:
   top_level_domain: example.com
-  name: openshift
+  name: sno
   admin_email: admin@example.com
   timezone: America/New_York
 
