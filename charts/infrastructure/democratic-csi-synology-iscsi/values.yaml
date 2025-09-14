@@ -1,6 +1,6 @@
 democratic-csi:
   driver: iscsi
-    name: synology-iscsi
+  name: synology-iscsi
   controller:
     enabled: true
   node:

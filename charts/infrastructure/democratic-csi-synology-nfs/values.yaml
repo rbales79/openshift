@@ -1,6 +1,6 @@
 democratic-csi:
   driver: nfs
-    name: synology-nfs
+  name: synology-nfs
   controller:
     enabled: true
   node:
