@@ -10,8 +10,8 @@ spec:
   generators:
     - list:
         elements:
-  - name: democratic-csi
-  - name: democratic-csi-snapshot-controller
+          - name: democratic-csi
+          - name: democratic-csi-snapshot-controller
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
