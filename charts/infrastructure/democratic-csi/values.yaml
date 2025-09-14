@@ -60,7 +60,7 @@ democratic-csi:
       driver: synology-iscsi
       httpConnection:
         protocol: http
-        host: synology.example.com
+        host: nas.roybales.com
         port: 5000
         username: admin
         password: password

@@ -39,3 +39,15 @@ spec:
             spec:
 {{ .Values.spec | toYaml | nindent 14 }}
 {{ .Values.config | toYaml | nindent 12 }}
+          values:
+            {{- if eq .name "democratic-csi" }}
+            democratic-csi:
+              driver:
+                config:
+                  httpConnection:
+                    host: "YOUR_SYNOLOGY_IP_OR_HOSTNAME"
+                    username: "YOUR_SYNOLOGY_USERNAME"
+                    password: "YOUR_SYNOLOGY_PASSWORD"
+                  synology:
+                    volume: "/volume1"
+            {{- end }}
