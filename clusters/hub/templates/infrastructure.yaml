@@ -10,8 +10,8 @@ spec:
   generators:
     - list:
         elements:
-        - name: democratic-csi-synology-iscsi
-        - name: democratic-csi-synology-nfs
+  - name: democratic-csi
+  - name: democratic-csi-snapshot-controller
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
