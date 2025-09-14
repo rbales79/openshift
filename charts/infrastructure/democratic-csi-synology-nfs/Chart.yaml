@@ -1,9 +1,0 @@
-apiVersion: v2
-name: democratic-csi-synology-nfs
-description: Democratic CSI Synology NFS driver
-version: 0.1.0
-type: application
-dependencies:
-  - name: democratic-csi
-    version: "0.13.5"
-    repository: "https://democratic-csi.github.io/charts/"
