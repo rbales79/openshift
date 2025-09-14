@@ -30,8 +30,10 @@ The deployment model follows a two-tier architecture:
     │   ├── ollama/            # Local LLM runtime
     │   └── open-webui/        # Web UI for LLMs
     ├── infrastructure/
-    │   ├── gatus/             # Service monitoring and health checks
-    │   └── goldilocks/        # VPA recommendations dashboard
+  │   ├── gatus/             # Service monitoring and health checks
+  │   ├── goldilocks/        # VPA recommendations dashboard
+  │   ├── democratic-csi-synology-iscsi/ # Synology iSCSI storage driver
+  │   └── democratic-csi-synology-nfs/   # Synology NFS storage driver
     ├── media/
     │   ├── bazarr/            # Subtitle management
     │   ├── flaresolverr/      # Cloudflare proxy solver

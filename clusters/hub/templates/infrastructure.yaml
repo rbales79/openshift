@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: {{ .Release.Name }}-media
+  name: {{ .Release.Name }}-infrastructure
 spec:
   ignoreApplicationDifferences:
     - jsonPointers:
@@ -10,24 +10,8 @@ spec:
   generators:
     - list:
         elements:
-        - name: bazarr
-        - name: flaresolverr
-        - name: gaps
-        - name: huntarr
-        - name: kapowarr
-        - name: kavita
-        - name: lidarr
-        - name: metube
-        - name: overseerr
-        - name: pinchflat
-        - name: plex
-        - name: posterizarr
-        - name: prowlarr
-        - name: radarr
-        - name: readarr
-        - name: sabnzbd
-        - name: sonarr
-        - name: tautulli
+        - name: democratic-csi-synology-iscsi
+        - name: democratic-csi-synology-nfs
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
@@ -37,23 +21,18 @@ spec:
       - kind: Application
         group: argoproj.io
         jsonPointers:
-        - /spec/syncPolicy/automated
+        - /spec/syncPolicy
       project: default
       destination:
         server: {{ .Values.spec.destination.server }}
-        namespace: '{{ "{{" }} .name {{ "}}" }}'
+        namespace: "openshift-gitops"
       syncPolicy:
-        managedNamespaceMetadata:
-          labels:
-            goldilocks.fairwinds.com/enabled: "true"
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
       source:
         repoURL: {{ .Values.spec.source.repoURL }}
-        path: charts/{{ "{{" }} default "media" .group {{ "}}" }}/{{ "{{" }} .name {{ "}}" }}
+        path: charts/infrastructure/{{ "{{" }} .name {{ "}}" }}
         targetRevision: {{ .Values.spec.source.targetRevision }}
         helm:
           valuesObject:
