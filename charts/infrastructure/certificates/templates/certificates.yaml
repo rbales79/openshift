@@ -10,7 +10,7 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-{{ .Values.issuer }}
   commonName: "api.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}"
-  dnsNames: 
+  dnsNames:
     - "api.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}"
 ---
 apiVersion: cert-manager.io/v1
@@ -24,6 +24,6 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-{{ .Values.issuer }}
   commonName: "apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}"
-  dnsNames: 
+  dnsNames:
     - "apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}"
     - "*.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}"
