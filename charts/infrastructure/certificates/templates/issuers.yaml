@@ -14,15 +14,13 @@ spec:
     solvers:
     - selector:
         dnsZones:
-          - {{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+          - {{ .Values.cluster.top_level_domain }}
       dns01:
-        route53:
-          region: {{ .Values.aws.region }}
-          hostedZoneID: {{ .Values.aws.hosted_zone_id }}
-          accessKeyID: {{ .Values.aws.access_key_id }}
-          secretAccessKeySecretRef:
-            name: certificates-secret
-            key: secretAccessKey
+        cloudflare:
+          email: {{ .Values.cluster.admin_email }}
+          apiTokenSecretRef:
+            name: cloudflare-api-token
+            key: api-token
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/cert-manager.io/clusterissuer_v1.json
 apiVersion: cert-manager.io/v1
@@ -42,7 +40,7 @@ spec:
           - {{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
       dns01:
         cloudflare:
-          email: <your-cloudflare-email>
+          email: {{ .Values.cluster.admin_email }}
           apiTokenSecretRef:
             name: cloudflare-api-token
             key: api-token
