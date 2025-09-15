@@ -1,0 +1,32 @@
+{{- if .Values.multiClusterHub.enabled }}
+---
+apiVersion: operator.open-cluster-management.io/v1
+kind: MultiClusterHub
+metadata:
+  name: {{ .Values.multiClusterHub.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  availabilityConfig: Basic
+  {{- if .Values.components.observability.enabled }}
+  enableClusterBackup: false
+  {{- end }}
+  {{- if not .Values.components.applicationManager.enabled }}
+  disableHubSelfManagement: false
+  {{- end }}
+  overrides:
+    components:
+    {{- if not .Values.components.applicationManager.enabled }}
+    - name: application-ui
+      enabled: false
+    {{- end }}
+    {{- if not .Values.components.grc.enabled }}
+    - name: grc-ui
+      enabled: false
+    {{- end }}
+    {{- if not .Values.components.search.enabled }}
+    - name: search-ui
+      enabled: false
+    - name: search-collector
+      enabled: false
+    {{- end }}
+{{- end }}

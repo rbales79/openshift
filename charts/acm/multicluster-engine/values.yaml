@@ -1,0 +1,15 @@
+# Multicluster Engine configuration
+namespace: multicluster-engine
+
+# MCE Operator configuration
+operator:
+  enabled: true
+  channel: "stable-2.5"
+  installPlanApproval: Automatic
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+
+# MultiClusterEngine configuration
+multiClusterEngine:
+  enabled: true
+  name: multiclusterengine
