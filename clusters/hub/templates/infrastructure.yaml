@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
-      namespace: "openshift-gitops"
+      namespace: "cert-manager-operator"
     spec:
       ignoreDifferences:
       - kind: Application
