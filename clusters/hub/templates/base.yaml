@@ -10,8 +10,6 @@ spec:
   generators:
     - list:
         elements:
-        - name: external-secrets-operator
-          group: security
         - name: goldilocks
           group: infrastructure
         - name: gatus

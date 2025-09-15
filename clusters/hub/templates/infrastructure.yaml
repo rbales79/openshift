@@ -11,7 +11,6 @@ spec:
     - list:
         elements:
           - name: cert-manager-operator
-          - name: certificates
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
