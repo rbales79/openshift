@@ -43,4 +43,4 @@ spec:
           email: {{ .Values.cluster.admin_email }}
           apiTokenSecretRef:
             name: cloudflare-api-token
-            key: api-token
+            key: cloudflare-api-token

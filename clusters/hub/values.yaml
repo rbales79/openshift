@@ -17,8 +17,7 @@ config:
       media:
         nfs:
           server: nas
-          path: /volume1/media
-
-  plex:
-    network:
-      ip: 192.168.1.10
+          path: /volume1/hub
+  externalSecrets:
+    infisical:
+      projectSlug: hub-cluster # Your Infisical project slug
