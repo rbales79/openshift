@@ -10,7 +10,8 @@ spec:
   generators:
     - list:
         elements:
-          - name: cert-manager
+          - name: cert-manager-operator
+          - name: certificates
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
@@ -24,7 +25,7 @@ spec:
       project: default
       destination:
         server: {{ .Values.spec.destination.server }}
-        namespace: "cert-manager"
+        namespace: "cert-manager-operator"
       syncPolicy:
         automated:
           prune: true
