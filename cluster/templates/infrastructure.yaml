@@ -10,8 +10,6 @@ spec:
   generators:
     - list:
         elements:
-          - name: democratic-csi
-          - name: democratic-csi-snapshot-controller
           - name: cert-manager
   template:
     metadata:
