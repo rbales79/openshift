@@ -1,0 +1,9 @@
+apiVersion: v2
+name: cert-manager
+description: cert-manager for automated certificate management
+version: 1.0.0
+type: application
+dependencies:
+  - name: cert-manager
+    version: "v1.14.4"
+    repository: "https://charts.jetstack.io"
