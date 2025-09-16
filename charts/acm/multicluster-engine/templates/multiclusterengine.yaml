@@ -4,6 +4,18 @@ apiVersion: multicluster.openshift.io/v1
 kind: MultiClusterEngine
 metadata:
   name: {{ .Values.multiClusterEngine.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  availabilityConfig: High
+  targetNamespace: {{ .Values.namespace }}
+{{- end }}lues.multiClusterEngine.enabled }}
+---
+apiVersion: multicluster.openshift.io/v1
+kind: MultiClusterEngine
+metadata:
+  name: {{ .Values.multiClusterEngine.name }}
 spec:
   availabilityConfig: basic
   targetNamespace: {{ .Values.namespace }}

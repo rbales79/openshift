@@ -35,6 +35,13 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 30s
+            factor: 2
+            maxDuration: 3m
       source:
         repoURL: {{ .Values.spec.source.repoURL }}
         path: charts/{{ "{{" }} default "acm" .group {{ "}}" }}/{{ "{{" }} .name {{ "}}" }}
