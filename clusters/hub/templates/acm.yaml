@@ -12,7 +12,7 @@ spec:
         elements:
           # Install in dependency order: MCE first, then cluster-manager, then ACM
           - name: multicluster-engine
-          - name: cluster-manager  
+          - name: cluster-manager
           - name: advanced-cluster-management
   template:
     metadata:
