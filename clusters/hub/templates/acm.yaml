@@ -10,9 +10,10 @@ spec:
   generators:
     - list:
         elements:
-          - name: advanced-cluster-management
+          # Install in dependency order: MCE first, then cluster-manager, then ACM
           - name: multicluster-engine
-          - name: cluster-manager
+          - name: cluster-manager  
+          - name: advanced-cluster-management
   template:
     metadata:
       name: '{{ "{{" }} .name {{ "}}" }}'
@@ -31,6 +32,9 @@ spec:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
       source:
         repoURL: {{ .Values.spec.source.repoURL }}
         path: charts/{{ "{{" }} default "acm" .group {{ "}}" }}/{{ "{{" }} .name {{ "}}" }}

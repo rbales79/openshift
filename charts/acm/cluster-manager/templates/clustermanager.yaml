@@ -11,11 +11,8 @@ apiVersion: operator.open-cluster-management.io/v1
 kind: ClusterManager
 metadata:
   name: {{ .Values.clusterManager.name }}
-  namespace: {{ .Values.namespace }}
 spec:
   registrationImagePullSpec: quay.io/open-cluster-management/registration
   workImagePullSpec: quay.io/open-cluster-management/work
   placementImagePullSpec: quay.io/open-cluster-management/placement
-  deployOption:
-    mode: {{ .Values.registration.mode }}
 {{- end }}

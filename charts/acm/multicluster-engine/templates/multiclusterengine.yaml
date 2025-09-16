@@ -4,7 +4,6 @@ apiVersion: multicluster.openshift.io/v1
 kind: MultiClusterEngine
 metadata:
   name: {{ .Values.multiClusterEngine.name }}
-  namespace: {{ .Values.namespace }}
 spec:
   availabilityConfig: High
   targetNamespace: {{ .Values.namespace }}
