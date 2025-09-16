@@ -1,5 +1,0 @@
-apiVersion: v2
-name: cluster-manager
-description: Open Cluster Management Cluster Manager
-version: 0.1.0
-appVersion: "0.13.0"

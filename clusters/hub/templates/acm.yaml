@@ -1,4 +1,9 @@
-apiVersion: argoproj.io/v1alpha1
+apiVersio  generators:
+    - list:
+        elements:
+          # Install in dependency order: MCE first, then ACM
+          - name: multicluster-engine
+          - name: advanced-cluster-managementproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ .Release.Name }}-acm

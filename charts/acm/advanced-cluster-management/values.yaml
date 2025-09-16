@@ -8,26 +8,3 @@ operator:
   installPlanApproval: Automatic
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-
-# MultiClusterHub configuration
-multiClusterHub:
-  enabled: true
-  name: multiclusterhub
-
-# Additional ACM components
-components:
-  # Application Lifecycle Management
-  applicationManager:
-    enabled: true
-
-  # Governance Risk and Compliance
-  grc:
-    enabled: true
-
-  # Observability
-  observability:
-    enabled: false  # Enable if you want ACM observability
-
-  # Search
-  search:
-    enabled: true

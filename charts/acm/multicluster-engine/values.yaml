@@ -8,8 +8,3 @@ operator:
   installPlanApproval: Automatic
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-
-# MultiClusterEngine configuration
-multiClusterEngine:
-  enabled: true
-  name: multiclusterengine

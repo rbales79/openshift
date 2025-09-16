@@ -6,16 +6,12 @@ metadata:
   name: {{ .Values.namespace }}
   labels:
     name: {{ .Values.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 ---
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: multicluster-engine
   namespace: {{ .Values.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
 spec: {}
 ---
 apiVersion: operators.coreos.com/v1alpha1
@@ -23,8 +19,6 @@ kind: Subscription
 metadata:
   name: multicluster-engine
   namespace: {{ .Values.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   channel: {{ .Values.operator.channel }}
   installPlanApproval: {{ .Values.operator.installPlanApproval }}
