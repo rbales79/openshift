@@ -5,6 +5,6 @@ kind: MultiClusterEngine
 metadata:
   name: {{ .Values.multiClusterEngine.name }}
 spec:
-  availabilityConfig: High
+  availabilityConfig: basic
   targetNamespace: {{ .Values.namespace }}
 {{- end }}

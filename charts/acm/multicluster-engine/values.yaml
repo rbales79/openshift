@@ -4,7 +4,7 @@ namespace: multicluster-engine
 # MCE Operator configuration
 operator:
   enabled: true
-  channel: "stable-2.5"
+  channel: "stable-2.9"
   installPlanApproval: Automatic
   source: redhat-operators
   sourceNamespace: openshift-marketplace
